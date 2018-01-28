@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+        <script src="http://cloud.youku.com/assets/lib/uploadjs.php"></script>
+    <title>Hello, world!</title>
+</head>
+
+<body>
+    <div id="youku-upload">
+        <div class="container">
+            <form class="well form-horizontal" name="video-upload">
+                <fieldset>
+                            <div class="control-group">
+                        <label class="control-label" for="spanSWFUploadButton">选择文件：</label>
+                        <div id="uploadControl" class="controls"></div>
+                    </div>
+                    <div class="control-group">
+                       <label class="control-label" for="input01">标题：</label>
+                      <div class="controls">
+                          <input type="text" class="input-xlarge" id="input01" name="title">
+                      </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="textarea">简介：</label>
+                    <div class="controls">
+                        <textarea class="input-xlarge" id="textarea" rows="3" name="description"></textarea>
+                    </div>
+                </div>
+                   <div class="control-group">
+                       <label class="control-label" for="input02">标签：</label>
+                       <div class="controls">
+                          <input type="text" class="input-xlarge" id="input02" name="tags">
+                          <span class="help-inline"></span>
+                      </div>
+                   </div>
+               <div class="control-group">
+                    <label class="control-label" for="category-node">类别：</label>
+                    <div class="controls">
+                        <select id="category-node" name="category" ></select>
+                     </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">版权所有</label>
+                   <div class="controls">
+                   <label class="radio inline">
+                        <input type="radio" name="copyright_type" id="copyright_type2" value="original" checked="">原创
+                    </label>
+                    <label class="radio inline">
+                   <input type="radio" name="copyright_type" id="copyright_type1" value="reproduced">转载
+               </label>
+     </div>
+    </div>
+    <div class="control-group">
+       <label class="control-label">视频权限</label>
+          <div class="controls">
+                 <label class="radio inline">
+                   <input type="radio" name="public_type" id="public_type1" value="all" checked="">公开
+                 </label>
+                 <label class="radio inline">
+                   <input type="radio" name="public_type" id="public_type2" value="friend">仅好友
+                 </label>
+                 <label class="radio inline">
+                    <input type="radio" name="public_type" id="public_type3" value="password">输入密码观看
+                 </label>
+                 <label class="radio inline" style="display:none" id="passwrod">
+                    <input type="text" class="input "name="watch_password">
+                 </label>
+         </div>
+    </div>
+    <div class="form-actions">
+            <button type="submit" class="btn btn-primary start" id="btn-upload-start">
+             <i class="icon-upload icon-white"></i>
+        <span>开始上传</span>
+        </button>
+    </div>
+    </fieldset>
+    </form>
+    <div class="row" >
+        <div class="span5" id="upload-status-wraper" ></div>
+    </div>
+    <br>
+    <div class="well"><h3>说明</h3><ul><li>最大支持上传<strong>1 GB</strong> 视频文件</li><li>允许上传的视频格式为：wmv,avi,dat,asf,rm,rmvb,ram,mpg,mpeg,3gp,mov,mp4,m4v,dvix,dv,dat,</br>mkv,flv,vob,ram,qt,divx,cpk,fli,flc,mod。不符合格式的视频将会被丢弃，请确保视频格式的正确性，避免上传失败</li><li></li></ul>
+    </div>
+    </div>
+    <!--完成上传的DOM和登录DOM 开始-->
+    <div id="complete"></div>
+    <div id="login" style="width:100%;height:100%;position:fixed;z-index:999;left:0px;top:0px;overflow:hidden;display:none;">
+    </div>
+    <!--完成上传的DOM和登录DOM 结束-->
+
+
+    <script>
+        //document.domain = "youku.com";
+        var USE_STREAM_UPLOAD = true;
+        jQuery(document).ready(function(){       
+            var param = {client_id:"",access_token:"",completeCallback:"uploadComplete"};
+            youkuUploadInit(param);
+       });
+        //上传完成时回调方法
+        function uploadComplete(data){
+                alert("videoid="+data.videoid+";title="+data.title);
+                uploadagain();
+        }
+ </script>
+</body>
+
+</html>
